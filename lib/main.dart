@@ -1,4 +1,5 @@
 import 'package:dunwall/view/base/base_view.dart';
+import 'package:dunwall/view/base/base_view_model.dart';
 import 'package:dunwall/view/search/search_view.dart';
 import 'package:dunwall/view/search/search_view_model.dart';
 import 'package:dunwall/view/home/home_view.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeViewModel(),
         ),
         ChangeNotifierProvider(
-          create: (context) => NavigationProvider(),
+          create: (context) => BaseViewModel(),
         )
       ],
       child: MaterialApp(

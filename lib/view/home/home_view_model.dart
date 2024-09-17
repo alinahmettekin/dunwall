@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dunwall/core/credentials/credentials.dart';
 import 'package:dunwall/core/model/google_places/photos.dart';
+import 'package:dunwall/core/model/google_places/place.dart';
 import 'package:dunwall/core/model/google_places/results.dart';
 import 'package:dunwall/core/network/network.dart';
 import 'package:flutter/material.dart';
@@ -149,22 +150,18 @@ class HomeViewModel extends ChangeNotifier {
         return;
       } else {
         for (var reference in photoReferences) {
-          if (reference == 'false') {
-            photos.add(Image.asset('assets/images/not_found.jpg'));
-          } else {
-            photos.add(
-              Image.network(
-                '$baseUrl$reference&key=${Credentials.apiKey}',
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.error),
-                  );
-                },
-              ),
-            );
-          }
+          photos.add(
+            Image.network(
+              '$baseUrl$reference&key=${Credentials.apiKey}',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.error),
+                );
+              },
+            ),
+          );
         }
       }
       placeImages = photos;
@@ -276,5 +273,18 @@ class HomeViewModel extends ChangeNotifier {
       log('places alınırken hata oluştu', error: e);
     }
     notifyListeners();
+  }
+
+  Place? currentPlace;
+  Future<void> setPlace(Results result) async {
+    try {
+      currentPlace = Place();
+      currentPlace?.id = result.placeId;
+      currentPlace?.name = result.name;
+      currentPlace?.photoReference = result.photos![0].photoReference ?? 'not_found';
+      log('halledildi');
+    } catch (e) {
+      log('hata aldım setlerken');
+    }
   }
 }

@@ -1,8 +1,8 @@
-class Place {
-  String? placeName;
-  String? placePrice;
-  String? city;
-  String? country;
+import 'package:dunwall/core/model/google_places/opening_hours.dart';
 
-  Place({this.placeName, this.placePrice, this.city, this.country});
+class Place {
+  String? name;
+  String? id;
+  String? photoReference;
+  OpeningHours? openingHours;
 }

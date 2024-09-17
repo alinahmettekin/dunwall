@@ -1,4 +1,5 @@
 import 'package:dunwall/view/base/base_view.dart';
+import 'package:dunwall/view/base/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
           tabBackgroundColor: Colors.grey,
           gap: 8,
           padding: const EdgeInsets.all(5),
-          onTabChange: (value) => context.read<NavigationProvider>().updateIndex(value),
-          selectedIndex: context.read<NavigationProvider>().currentIndex,
+          onTabChange: (value) => context.read<BaseViewModel>().updateIndex(value),
+          selectedIndex: context.watch<BaseViewModel>().currentIndex,
           tabs: const [
             GButton(
               icon: Icons.home_outlined,
