@@ -44,7 +44,7 @@ class DioHelper {
     }
   }
 
-  String createUrlWithParameters(Map<String, dynamic> parameters) {
+  String createUrlWithParametersForPlaces(Map<String, dynamic> parameters) {
     final uri = Uri.parse(DioConstants.nearbySearch);
     final queryParameters = <String, String>{};
 
@@ -66,6 +66,18 @@ class DioHelper {
         queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
 
     return ('$uri${uri.hasQuery ? '&' : '?'}$encodedParams&key=${Credentials.apiKey}')
+        .replaceAll('%7C', '|')
+        .replaceAll('%2C', ',');
+  }
+
+  String createUrlWithParametersForCompletes(String input) {
+    final uri = Uri.parse(DioConstants.autoComplete);
+    final queryParameters = <String, String>{};
+
+    final encodedParams =
+        queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+
+    return ('$uri${uri.hasQuery ? '&' : '?'}${encodedParams}input=$input&key=${Credentials.apiKey}')
         .replaceAll('%7C', '|')
         .replaceAll('%2C', ',');
   }

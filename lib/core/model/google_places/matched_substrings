@@ -1,0 +1,23 @@
+import 'package:dunwall/core/model/google_places/base_model.dart';
+class MatchedSubstrings extends BaseModel<MatchedSubstrings> {
+  int? length;
+  int? offset;
+
+  MatchedSubstrings({this.length, this.offset});
+
+  MatchedSubstrings.fromJson(Map<String, dynamic> json) {
+    length = json['length'];
+    offset = json['offset'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['length'] = this.length;
+    data['offset'] = this.offset;
+    return data;
+  }
+  @override
+  MatchedSubstrings fromJson(Map<String, dynamic> json) {
+    return MatchedSubstrings.fromJson(json);
+  }
+}
